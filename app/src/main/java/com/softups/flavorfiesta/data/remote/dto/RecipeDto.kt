@@ -6,6 +6,7 @@ data class RecipesDto(
     val recipes: List<RecipeDto>,
     val total: Int
 )
+
 data class RecipeDto(
     val id: Int,
     val name: String,
@@ -25,17 +26,25 @@ data class RecipeDto(
     val mealType: List<String>
 )
 
-fun RecipeDto.toRecipe() = Recipe(
-    id = id,
-    name = name,
-    ingredients = ingredients,
-    instructions = instructions,
-    prepTimeMinutes= prepTimeMinutes,
-    cookTimeMinutes = cookTimeMinutes,
-    caloriesPerServing = caloriesPerServing,
-    servings = servings,
-    difficulty = difficulty,
-    cuisine = cuisine,
-    tags = tags,
-    image = image
-)
+fun RecipesDto.toRecipes(): List<Recipe> {
+    return this.recipes.map {
+        it.run {
+            Recipe(
+                id = id,
+                name = name,
+                ingredients = ingredients,
+                instructions = instructions,
+                prepTimeMinutes = prepTimeMinutes,
+                cookTimeMinutes = cookTimeMinutes,
+                caloriesPerServing = caloriesPerServing,
+                servings = servings,
+                difficulty = difficulty,
+                cuisine = cuisine,
+                tags = tags,
+                image = image
+            )
+        }
+
+    }
+
+}
