@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -60,14 +57,8 @@ fun DetailRecipeIngredients(
 @Composable
 fun RecipeIngredientItem(modifier: Modifier = Modifier, ingredient: String) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            Icons.Default.CheckCircleOutline,
-            contentDescription = null,
-            modifier = Modifier
-                .padding(start = dimensionResource(R.dimen.padding_medium))
-        )
         Text(
-            text = ingredient,
+            text = "• $ingredient",
             style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
         )
