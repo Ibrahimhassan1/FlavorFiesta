@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">FlavorFiesta</string>
-    <string name="prep_time_in_minutes">%1$s MIN</string>
+    <string name="recipe_list_title">Flavor Fiesta</string>
+    <string name="recipe_detail_title">Recipe Detail</string>
+    <string name="time_in_minutes">%1$s MIN</string>
+    <string name="prep_time">Prep Time:</string>
+    <string name="cook_time">Cook Time:</string>
+    <string name="servings">Servings:</string>
+    <string name="calories_per_servings">Calories per serving:</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="step_number">Step %1$s</string>
+    <string name="back_button">Back</string>
 </resources>

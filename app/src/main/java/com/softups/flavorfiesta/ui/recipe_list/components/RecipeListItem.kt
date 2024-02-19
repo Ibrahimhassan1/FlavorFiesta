@@ -82,7 +82,7 @@ fun RecipeListItem(
                     )
                     Text(
                         text = stringResource(
-                            R.string.prep_time_in_minutes,
+                            R.string.time_in_minutes,
                             recipe.prepTimeMinutes
                         ),
                         style = MaterialTheme.typography.labelMedium,
