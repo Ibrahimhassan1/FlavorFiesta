@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FlavorFiesta</string>
+    <string name="prep_time_in_minutes">%1$s MIN</string>
 </resources>
