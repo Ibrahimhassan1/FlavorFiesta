@@ -1,13 +1,4 @@
-package com.softups.flavorfiesta.common
-
-import com.google.gson.Gson
-import com.softups.flavorfiesta.data.remote.dto.RecipesDto
-import com.softups.flavorfiesta.data.remote.dto.toRecipes
-import com.softups.flavorfiesta.domain.model.Recipe
-
-class TestUtils {
-    companion object {
-        var jsonString = """{
+{
   "recipes": [
     {
       "id": 1,
@@ -1251,9 +1242,4 @@ class TestUtils {
   "total": 50,
   "skip": 0,
   "limit": 30
-}""";
-        private var gson = Gson()
-        var dummyRecipesDto: RecipesDto = gson.fromJson(jsonString, RecipesDto::class.java)
-        val singleDummyRecipe: Recipe = dummyRecipesDto.toRecipes()[0]
-    }
 }

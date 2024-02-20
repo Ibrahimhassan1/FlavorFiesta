@@ -73,6 +73,9 @@ fun FlavorFiestaApp(recipeListViewModel: RecipeListViewModel = hiltViewModel()) 
                             onItemClick = {
                                 recipeListViewModel.setSelectedRecipe(it)
                                 navController.navigate(Screen.RecipeDetailScreen.route)
+                            },
+                            onRefreshClick = {
+                                recipeListViewModel.getRecipes()
                             }
                         )
                     }

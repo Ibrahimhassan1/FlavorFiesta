@@ -26,7 +26,7 @@ class RecipeListViewModel @Inject constructor(
         getRecipes()
     }
 
-    private fun getRecipes() {
+    fun getRecipes() {
         getRecipesUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -37,6 +37,7 @@ class RecipeListViewModel @Inject constructor(
 
                 is Resource.Error -> {
                     _state.value = RecipeListState(
+                        isLoading = false,
                         error = result.message ?: UN_EXPECTED_ERROR
                     )
                 }

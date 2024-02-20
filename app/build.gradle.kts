@@ -75,6 +75,9 @@ dependencies {
     // Retrofit with Gson Converter
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    // MockWebServer
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.9")
+    testImplementation("net.bytebuddy:byte-buddy:1.12.14")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.50")
@@ -99,6 +102,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
 }
 
 kapt {

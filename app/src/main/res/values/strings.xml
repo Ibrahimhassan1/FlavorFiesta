@@ -11,4 +11,5 @@
     <string name="instructions">Instructions</string>
     <string name="step_number">Step %1$s</string>
     <string name="back_button">Back</string>
+    <string name="empty_list">No recipes found!</string>
 </resources>
