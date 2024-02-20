@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -61,32 +62,40 @@ fun FlavorFiestaApp(recipeListViewModel: RecipeListViewModel = hiltViewModel()) 
                     .padding(innerPadding),
                 color = MaterialTheme.colorScheme.background
             ) {
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.RecipeListScreen.route
-                ) {
-                    composable(
-                        route = Screen.RecipeListScreen.route
-                    ) {
-                        RecipeListScreen(
-                            recipeListState = recipeListViewModel.state.value,
-                            onItemClick = {
-                                recipeListViewModel.setSelectedRecipe(it)
-                                navController.navigate(Screen.RecipeDetailScreen.route)
-                            },
-                            onRefreshClick = {
-                                recipeListViewModel.getRecipes()
-                            }
-                        )
-                    }
-                    composable(
-                        route = Screen.RecipeDetailScreen.route
-                    ) {
-                        recipeListViewModel.state.value.selectedRecipe?.let {
-                            RecipeDetailScreen(recipe = it)
-                        }
-                    }
+                AppNavHost(navController, recipeListViewModel)
+            }
+        }
+    }
+}
+
+@Composable
+fun AppNavHost(
+    navController: NavHostController,
+    recipeListViewModel: RecipeListViewModel = hiltViewModel()
+) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.RecipeListScreen.route
+    ) {
+        composable(
+            route = Screen.RecipeListScreen.route
+        ) {
+            RecipeListScreen(
+                recipeListState = recipeListViewModel.state.value,
+                onItemClick = {
+                    recipeListViewModel.setSelectedRecipe(it)
+                    navController.navigate(Screen.RecipeDetailScreen.route)
+                },
+                onRefreshClick = {
+                    recipeListViewModel.getRecipes()
                 }
+            )
+        }
+        composable(
+            route = Screen.RecipeDetailScreen.route
+        ) {
+            recipeListViewModel.state.value.selectedRecipe?.let {
+                RecipeDetailScreen(recipe = it)
             }
         }
     }

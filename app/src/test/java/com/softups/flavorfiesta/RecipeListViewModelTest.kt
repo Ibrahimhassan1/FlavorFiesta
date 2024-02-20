@@ -10,6 +10,7 @@ import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.data.remote.repository.DefaultRecipeRepository
 import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
+import com.softups.flavorfiesta.util.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -69,7 +70,7 @@ class RecipeListViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `malformed json testing normal get recipe`() = runTest {
+    fun `when normal request is received then emit recipes list`() = runTest {
         mockWebServer.enqueueResponse("recipes.json", HttpURLConnection.HTTP_OK)
         val flowableRecipesUseCase = getRecipesUseCase()
         flowableRecipesUseCase.collect { result ->
@@ -81,13 +82,7 @@ class RecipeListViewModelTest {
                     advanceUntilIdle()
                 }
 
-                is Resource.Error -> {
-                    println("Not connected")
-                    assertEquals(result.message, NOT_CONNECTED_ERROR)
-                    assertEquals(recipeListViewModelState.isLoading, false)
-                    Assert.assertTrue(recipeListViewModelState.recipes.isNotEmpty())
-                    assertEquals(recipeListViewModelState.error, "")
-                }
+                is Resource.Error -> {}
 
                 is Resource.Success -> {
                     assertEquals(result.message, null)

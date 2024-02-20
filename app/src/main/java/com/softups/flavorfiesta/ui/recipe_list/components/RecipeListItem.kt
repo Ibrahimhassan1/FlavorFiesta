@@ -18,11 +18,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -33,6 +37,7 @@ import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.model.Recipe
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RecipeListItem(
     modifier: Modifier = Modifier,
@@ -46,6 +51,7 @@ fun RecipeListItem(
             }
             .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             .wrapContentHeight()
+            .semantics { testTagsAsResourceId = true }
     ) {
         Row {
             Box {
@@ -57,7 +63,8 @@ fun RecipeListItem(
                     contentDescription = null,
                     modifier = modifier
                         .size(width = 125.dp, height = 125.dp)
-                        .aspectRatio(1f),
+                        .aspectRatio(1f)
+                        .testTag(recipe.image),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -86,7 +93,9 @@ fun RecipeListItem(
                             recipe.prepTimeMinutes
                         ),
                         style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
+                        modifier = Modifier
+                            .padding(start = dimensionResource(R.dimen.padding_small))
+                            .testTag("${recipe.id} ${stringResource(R.string.preparation_time_in_minutes_test_tag)}")
                     )
                 }
             }

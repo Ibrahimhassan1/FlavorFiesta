@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +48,8 @@ fun DetailHeader(
                 placeholder = debugPlaceholder(R.drawable.top_app_bar_icon),
                 modifier = modifier
                     .heightIn(125.dp)
-                    .aspectRatio(1f),
+                    .aspectRatio(1f)
+                    .testTag(recipe.image),
                 contentScale = ContentScale.Crop
             )
         }

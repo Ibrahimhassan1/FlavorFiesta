@@ -1,4 +1,4 @@
-package com.softups.flavorfiesta
+package com.softups.flavorfiesta.util
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

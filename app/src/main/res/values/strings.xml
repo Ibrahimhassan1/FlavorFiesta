@@ -12,4 +12,8 @@
     <string name="step_number">Step %1$s</string>
     <string name="back_button">Back</string>
     <string name="empty_list">No recipes found!</string>
+    <string name="loading_recipes_content_description">Loading Recipes</string>
+    <string name="recipe_image_test_tag">recipe image test tag</string>
+    <string name="preparation_time_in_minutes_test_tag">preparation time in minutes test tag</string>
+    <string name="ingredient_with_bullet_point">• %1$s</string>
 </resources>

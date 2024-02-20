@@ -17,8 +17,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
@@ -37,6 +40,7 @@ fun RecipeListScreen(
     onItemClick: (Recipe) -> Unit,
     onRefreshClick: () -> Unit
 ) {
+    val context = LocalContext.current
     Box(modifier = modifier.fillMaxSize()) {
         if (recipeListState.recipes.isNotEmpty()) {
             LazyVerticalGrid(
@@ -73,7 +77,15 @@ fun RecipeListScreen(
             DisplayError(recipeListState.error, modifier.align(Alignment.Center))
         }
         if (recipeListState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .semantics {
+                        contentDescription =
+                            context.getString(R.string.loading_recipes_content_description)
+                    },
+
+                )
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.softups.flavorfiesta
+package com.softups.flavorfiesta.use_case
 
 import MainDispatcherRule
 import com.softups.flavorfiesta.common.Resource
