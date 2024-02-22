@@ -1,7 +1,7 @@
 package com.softups.flavorfiesta.domain.repository
 
-import com.softups.flavorfiesta.data.remote.dto.RecipesDto
+import com.softups.flavorfiesta.data.remote.dto.RecipeDto
 
 interface RecipeRepository {
-    suspend fun getRecipes(): RecipesDto
+    suspend fun getRecipes(): List<RecipeDto>
 }

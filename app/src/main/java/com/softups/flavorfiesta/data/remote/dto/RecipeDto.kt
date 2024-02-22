@@ -1,13 +1,17 @@
 package com.softups.flavorfiesta.data.remote.dto
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.softups.flavorfiesta.domain.model.Recipe
 
-data class RecipesDto(
+data class RemoteRecipesDto(
     val recipes: List<RecipeDto>,
     val total: Int
 )
 
+@Entity(tableName = "recipe")
 data class RecipeDto(
+    @PrimaryKey
     val id: Int,
     val name: String,
     val ingredients: List<String>,
@@ -26,7 +30,7 @@ data class RecipeDto(
     val mealType: List<String>
 )
 
-fun RecipesDto.toRecipes(): List<Recipe> {
+fun RemoteRecipesDto.toRecipes(): List<Recipe> {
     return this.recipes.map {
         it.run {
             Recipe(
@@ -47,4 +51,21 @@ fun RecipesDto.toRecipes(): List<Recipe> {
 
     }
 
+}
+
+fun RecipeDto.toRecipe(): Recipe {
+    return Recipe(
+        id = id,
+        name = name,
+        ingredients = ingredients,
+        instructions = instructions,
+        prepTimeMinutes = prepTimeMinutes,
+        cookTimeMinutes = cookTimeMinutes,
+        caloriesPerServing = caloriesPerServing,
+        servings = servings,
+        difficulty = difficulty,
+        cuisine = cuisine,
+        tags = tags,
+        image = image
+    )
 }

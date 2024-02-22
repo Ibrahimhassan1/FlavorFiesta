@@ -1,7 +1,7 @@
 package com.softups.flavorfiesta.common
 
 import com.google.gson.Gson
-import com.softups.flavorfiesta.data.remote.dto.RecipesDto
+import com.softups.flavorfiesta.data.remote.dto.RemoteRecipesDto
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.model.Recipe
 
@@ -1253,7 +1253,8 @@ class TestUtils {
   "limit": 30
 }""";
         private var gson = Gson()
-        var dummyRecipesDto: RecipesDto = gson.fromJson(jsonString, RecipesDto::class.java)
+        val dummyRecipesDto: RemoteRecipesDto =
+            gson.fromJson(jsonString, RemoteRecipesDto::class.java)
         val singleDummyRecipe: Recipe = dummyRecipesDto.toRecipes()[0]
     }
 }

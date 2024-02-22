@@ -1,10 +1,16 @@
 package com.softups.flavorfiesta.di
 
+import android.app.Application
 import android.util.Log
+import androidx.room.Room
 import com.softups.flavorfiesta.common.Constants.BASE_URL
 import com.softups.flavorfiesta.common.Constants.OK_HTTP_CLIENT_TIME_OUT
+import com.softups.flavorfiesta.data.local.LocalDataSource
+import com.softups.flavorfiesta.data.local.RecipesDao
+import com.softups.flavorfiesta.data.local.RecipesDatabase
 import com.softups.flavorfiesta.data.remote.RecipeApi
-import com.softups.flavorfiesta.data.remote.repository.DefaultRecipeRepository
+import com.softups.flavorfiesta.data.remote.RemoteDataSource
+import com.softups.flavorfiesta.data.repository.DefaultRecipeRepository
 import com.softups.flavorfiesta.domain.repository.RecipeRepository
 import dagger.Module
 import dagger.Provides
@@ -50,8 +56,39 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(recipeApi: RecipeApi): RecipeRepository {
-        return DefaultRecipeRepository(recipeApi)
+    fun provideRemoteDataSource(recipeApi: RecipeApi): RemoteDataSource {
+        return RemoteDataSource(recipeApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(recipesDao: RecipesDao): LocalDataSource {
+        return LocalDataSource(recipesDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipeRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): RecipeRepository {
+        return DefaultRecipeRepository(remoteDataSource, localDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipesDatabase(app: Application): RecipesDatabase {
+        return Room.databaseBuilder(
+            app,
+            RecipesDatabase::class.java,
+            RecipesDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipeDao(recipesDatabase: RecipesDatabase): RecipesDao {
+        return recipesDatabase.recipeDao
     }
 
 }

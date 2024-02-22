@@ -3,6 +3,8 @@ package com.softups.flavorfiesta.use_case
 import MainDispatcherRule
 import com.softups.flavorfiesta.common.Resource
 import com.softups.flavorfiesta.common.TestUtils
+import com.softups.flavorfiesta.data.DataSource
+import com.softups.flavorfiesta.data.TestLocalDataSource
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import com.softups.flavorfiesta.repository.TestRecipesRepository
@@ -10,6 +12,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,16 +20,28 @@ class GetRecipeListUseCaseTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val recipesRepository = TestRecipesRepository()
+    private lateinit var testLocalDataSource: DataSource
 
-    val getRecipesUseCase = GetRecipesUseCase(recipesRepository)
+    private lateinit var recipesRepository: TestRecipesRepository
+
+    private lateinit var getRecipesUseCase: GetRecipesUseCase
+
+    @Before
+    fun createDb() {
+        testLocalDataSource = TestLocalDataSource()
+        recipesRepository = TestRecipesRepository(testLocalDataSource)
+        getRecipesUseCase = GetRecipesUseCase(recipesRepository)
+    }
 
     @Test
     fun `when GetRecipeListUseCase invoked then viewModel emits LoadingState then SuccessWithData state`() =
         runTest {
-            val flowableRecipesUseCase = getRecipesUseCase()
+            assert(testLocalDataSource.fetchRecipes().isEmpty())
 
-            flowableRecipesUseCase.collect { result ->
+            // insert test recipes into local data source
+            testLocalDataSource.updateRecipes(TestUtils.dummyRecipesDto.recipes)
+
+            getRecipesUseCase().collect { result ->
                 when (result) {
                     is Resource.Loading -> {
                         assertEquals(result.data, null)
@@ -34,16 +49,21 @@ class GetRecipeListUseCaseTest {
                     }
 
                     is Resource.Error -> {
-                    assertNotEquals(result.message, null)
-                }
+                        assertNotEquals(result.message, null)
+                    }
 
-                is Resource.Success -> {
-                    assertArrayEquals(
-                        result.data?.toTypedArray(),
-                        TestUtils.dummyRecipesDto.toRecipes().toTypedArray()
-                    )
+                    is Resource.Success -> {
+                        assertArrayEquals(
+                            testLocalDataSource.fetchRecipes().toTypedArray(),
+                            TestUtils.dummyRecipesDto.recipes.toTypedArray()
+                        )
+
+                        assertArrayEquals(
+                            result.data?.toTypedArray(),
+                            TestUtils.dummyRecipesDto.toRecipes().toTypedArray()
+                        )
+                    }
                 }
             }
         }
-    }
 }
