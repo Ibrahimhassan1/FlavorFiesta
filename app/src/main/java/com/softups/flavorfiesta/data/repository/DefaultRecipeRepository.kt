@@ -17,7 +17,7 @@ class DefaultRecipeRepository @Inject constructor(
             if (remoteRecipes != localRecipes) {
                 localDataSource.updateRecipes(remoteRecipes)
             }
-        return remoteDataSource.fetchRecipes()
+        return localDataSource.fetchRecipes()
     }
 
 }
