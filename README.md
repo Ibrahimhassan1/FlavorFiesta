@@ -22,7 +22,7 @@ Open the project in Android Studio, build and run on an emulator or a device.
 
 ## Architecture and libraries
 
-- MVVM with ViewModels, StateFlow
+- MVVM with ViewModels, Flow and StateFlow
 - Compose for UI
 - Hilt for dependency injection
 - Clean Architecture with a domain layer that has use cases
