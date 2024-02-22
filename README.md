@@ -8,6 +8,8 @@ This is an attempt to follow Clean MVVM architecture and use latest Compose APIs
 
 ![caption](FlavorFiesta_screen_recording.gif)
 
+<img src="FlavorFiesta_screen_recording.gif" width="300">
+
 ## Build tools & versions used
 
 - Android Studio Hedgehog | 2023.1.1 Patch 2
