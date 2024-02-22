@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,7 +33,10 @@ import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
 @Composable
-fun FlavorFiestaApp(recipeListViewModel: RecipeListViewModel = hiltViewModel()) {
+fun FlavorFiestaApp(
+    widthSizeClass: WindowWidthSizeClass,
+    recipeListViewModel: RecipeListViewModel = hiltViewModel()
+) {
     val navController = rememberNavController()
     // Get current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -62,7 +66,7 @@ fun FlavorFiestaApp(recipeListViewModel: RecipeListViewModel = hiltViewModel()) 
                     .padding(innerPadding),
                 color = MaterialTheme.colorScheme.background
             ) {
-                AppNavHost(navController, recipeListViewModel)
+                AppNavHost(navController, recipeListViewModel, widthSizeClass)
             }
         }
     }
@@ -71,7 +75,8 @@ fun FlavorFiestaApp(recipeListViewModel: RecipeListViewModel = hiltViewModel()) 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    recipeListViewModel: RecipeListViewModel = hiltViewModel()
+    recipeListViewModel: RecipeListViewModel = hiltViewModel(),
+    widthSizeClass: WindowWidthSizeClass
 ) {
     NavHost(
         navController = navController,
@@ -88,14 +93,17 @@ fun AppNavHost(
                 },
                 onRefreshClick = {
                     recipeListViewModel.getRecipes()
-                }
+                },
+                widthSizeClass = widthSizeClass
             )
         }
         composable(
             route = Screen.RecipeDetailScreen.route
         ) {
             recipeListViewModel.state.value.selectedRecipe?.let {
-                RecipeDetailScreen(recipe = it)
+                RecipeDetailScreen(
+                    recipe = it
+                )
             }
         }
     }

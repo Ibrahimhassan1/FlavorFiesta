@@ -91,7 +91,7 @@ fun RecipeFact(modifier: Modifier = Modifier, title: String, value: String) {
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = modifier
                 .padding(end = dimensionResource(id = R.dimen.padding_medium))
                 .align(Alignment.CenterVertically)

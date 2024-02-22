@@ -59,7 +59,7 @@ fun RecipeIngredientItem(modifier: Modifier = Modifier, ingredient: String) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = stringResource(R.string.ingredient_with_bullet_point, ingredient),
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
         )
     }

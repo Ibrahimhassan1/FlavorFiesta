@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -19,7 +18,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.softups.flavorfiesta.R
@@ -47,7 +45,6 @@ fun DetailHeader(
                 contentDescription = null,
                 placeholder = debugPlaceholder(R.drawable.top_app_bar_icon),
                 modifier = modifier
-                    .heightIn(125.dp)
                     .aspectRatio(1f)
                     .testTag(recipe.image),
                 contentScale = ContentScale.Crop

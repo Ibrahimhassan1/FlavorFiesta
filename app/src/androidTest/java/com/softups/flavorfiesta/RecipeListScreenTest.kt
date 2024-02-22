@@ -1,6 +1,7 @@
 package com.softups.flavorfiesta
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -24,15 +25,18 @@ class RecipeListScreenTest {
     @Test
     fun displayLoadingSpinner_whenScreenIsLoading() {
         val testRecipeListState = RecipeListState(
-            isLoading = true
+            isLoading = true,
+            recipes = emptyList(),
+            error = ""
         )
         composeTestRule.setContent {
-            RecipeListScreen(recipeListState = testRecipeListState, onItemClick = {}) {
-
-            }
+            RecipeListScreen(
+                recipeListState = testRecipeListState,
+                onItemClick = {},
+                onRefreshClick = {})
         }
         composeTestRule.onNodeWithContentDescription(composeTestRule.activity.getString(R.string.loading_recipes_content_description))
-            .assertExists()
+            .isDisplayed()
     }
 
     @Test
@@ -41,9 +45,10 @@ class RecipeListScreenTest {
             error = "Test Error"
         )
         composeTestRule.setContent {
-            RecipeListScreen(recipeListState = testRecipeListState, onItemClick = {}) {
-
-            }
+            RecipeListScreen(
+                recipeListState = testRecipeListState,
+                onItemClick = {},
+                onRefreshClick = {})
         }
         composeTestRule.onNodeWithText("Test Error").assertExists()
     }
@@ -54,9 +59,10 @@ class RecipeListScreenTest {
             recipes = listOf()
         )
         composeTestRule.setContent {
-            RecipeListScreen(recipeListState = testRecipeListState, onItemClick = {}) {
-
-            }
+            RecipeListScreen(
+                recipeListState = testRecipeListState,
+                onItemClick = {},
+                onRefreshClick = {})
         }
         composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.empty_list))
             .assertExists()
@@ -70,9 +76,10 @@ class RecipeListScreenTest {
             recipes = testRecipesList
         )
         composeTestRule.setContent {
-            RecipeListScreen(recipeListState = testRecipeListState, onItemClick = {}) {
-
-            }
+            RecipeListScreen(
+                recipeListState = testRecipeListState,
+                onItemClick = {},
+                onRefreshClick = {})
         }
         composeTestRule.onNodeWithText(testRecipesList[0].name).assertExists()
         composeTestRule.onNodeWithText(
@@ -114,9 +121,8 @@ class RecipeListScreenTest {
                 onItemClick = {
                     onClickedRecipe = it
                     onClickAction = true
-                }) {
-
-            }
+                },
+                onRefreshClick = {})
         }
         composeTestRule.onNodeWithText(testRecipesList[0].name).performClick()
 

@@ -12,7 +12,9 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetRecipesUseCase @Inject constructor(private val recipeRepository: RecipeRepository) {
+class GetRecipesUseCase @Inject constructor(
+    private val recipeRepository: RecipeRepository
+) {
 
     operator fun invoke(): Flow<Resource<List<Recipe>>> = flow {
         try {

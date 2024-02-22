@@ -92,7 +92,7 @@ fun RecipeListItem(
                             R.string.time_in_minutes,
                             recipe.prepTimeMinutes
                         ),
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier
                             .padding(start = dimensionResource(R.dimen.padding_small))
                             .testTag("${recipe.id} ${stringResource(R.string.preparation_time_in_minutes_test_tag)}")

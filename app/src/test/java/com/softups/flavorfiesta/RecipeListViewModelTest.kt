@@ -14,7 +14,6 @@ import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
 import com.softups.flavorfiesta.util.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
@@ -34,9 +33,6 @@ class RecipeListViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private var testDispatcher = UnconfinedTestDispatcher()
 
     private val mockWebServer = MockWebServer()
     private lateinit var getRecipesUseCase: GetRecipesUseCase
@@ -67,7 +63,7 @@ class RecipeListViewModelTest {
         remoteDataSource = RemoteDataSource(recipeApi)
         localDataSource = TestLocalDataSource()
         recipesRepository =
-            DefaultRecipeRepository(remoteDataSource, localDataSource, dispatcher = testDispatcher)
+            DefaultRecipeRepository(remoteDataSource, localDataSource)
         getRecipesUseCase = GetRecipesUseCase(recipesRepository)
         recipeListViewModel = RecipeListViewModel(getRecipesUseCase)
     }

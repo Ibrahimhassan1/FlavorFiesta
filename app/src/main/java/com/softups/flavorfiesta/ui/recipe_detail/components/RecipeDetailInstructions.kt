@@ -63,14 +63,14 @@ fun RecipeInstructionsItem(modifier: Modifier = Modifier, instruction: String, s
     Column(modifier, horizontalAlignment = Alignment.Start) {
         Text(
             text = stringResource(R.string.step_number, stepNumber),
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_small))
         )
         Text(
             text = instruction,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_small))
         )
     }

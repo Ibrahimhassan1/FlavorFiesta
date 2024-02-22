@@ -8,6 +8,9 @@ import com.softups.flavorfiesta.data.TestLocalDataSource
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import com.softups.flavorfiesta.repository.TestRecipesRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -26,13 +29,17 @@ class GetRecipeListUseCaseTest {
 
     private lateinit var getRecipesUseCase: GetRecipesUseCase
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private var testDispatcher = UnconfinedTestDispatcher()
+
     @Before
-    fun createDb() {
+    fun setup() {
         testLocalDataSource = TestLocalDataSource()
         recipesRepository = TestRecipesRepository(testLocalDataSource)
         getRecipesUseCase = GetRecipesUseCase(recipesRepository)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `when GetRecipeListUseCase invoked then viewModel emits LoadingState then SuccessWithData state`() =
         runTest {
@@ -46,6 +53,7 @@ class GetRecipeListUseCaseTest {
                     is Resource.Loading -> {
                         assertEquals(result.data, null)
                         assertEquals(result.message, null)
+                        advanceUntilIdle()
                     }
 
                     is Resource.Error -> {
