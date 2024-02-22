@@ -6,9 +6,7 @@ This is an attempt to follow Clean MVVM architecture and use latest Compose APIs
 
 ## Snapshot
 
-![caption](FlavorFiesta_screen_recording.gif)
-
-<img src="FlavorFiesta_screen_recording.gif" width="300">
+<img src="FlavorFiesta_screen_recording.gif" width="300" alt="">
 
 ## Build tools & versions used
 
