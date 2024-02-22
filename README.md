@@ -6,7 +6,7 @@ This is an attempt to follow Clean MVVM architecture and use latest Compose APIs
 
 ## Snapshot
 
-![caption](FlavorFiesta_screen_recording.webm)
+![caption](FlavorFiesta_screen_recording.gif)
 
 ## Build tools & versions used
 
