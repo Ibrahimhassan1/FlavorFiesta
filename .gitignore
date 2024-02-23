@@ -14,3 +14,9 @@
 .cxx
 local.properties
 /.idea/
+
+# IntelliJ
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml

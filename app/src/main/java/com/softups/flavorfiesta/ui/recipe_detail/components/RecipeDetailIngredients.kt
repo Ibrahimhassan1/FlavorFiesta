@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.TestUtils
@@ -43,7 +44,12 @@ fun DetailRecipeIngredients(
             Text(
                 text = stringResource(R.string.ingredients),
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = modifier
+                    .padding(
+                        dimensionResource(id = R.dimen.padding_small)
+                    )
             )
             FlowColumn {
                 recipe.ingredients.forEach {

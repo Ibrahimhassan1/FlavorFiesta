@@ -102,7 +102,8 @@ fun AppNavHost(
         ) {
             recipeListViewModel.state.value.selectedRecipe?.let {
                 RecipeDetailScreen(
-                    recipe = it
+                    recipe = it,
+                    widthSizeClass = widthSizeClass
                 )
             }
         }

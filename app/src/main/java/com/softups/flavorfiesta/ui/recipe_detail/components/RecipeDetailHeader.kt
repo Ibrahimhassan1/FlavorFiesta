@@ -4,8 +4,9 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -30,12 +32,15 @@ import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 fun DetailHeader(
     modifier: Modifier = Modifier, recipe: Recipe
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth()
+    Card(
+        modifier = modifier
+            .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            .wrapContentHeight()
     ) {
         Column {
             Text(
                 text = recipe.name,
+                fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )

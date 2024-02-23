@@ -1,10 +1,7 @@
 package com.softups.flavorfiesta.ui.recipe_detail.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
@@ -24,7 +21,6 @@ import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.model.Recipe
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DetailRecipeInstructions(
     modifier: Modifier = Modifier,
@@ -37,15 +33,18 @@ fun DetailRecipeInstructions(
     ) {
         Column(
             modifier = modifier
-                .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.padding_small))
         ) {
             Text(
                 text = stringResource(R.string.instructions),
+                maxLines = 1,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )
-            FlowColumn {
+            Column(
+                modifier = modifier
+                    .wrapContentHeight()
+            ) {
                 recipe.instructions.forEachIndexed { index, instruction ->
                     RecipeInstructionsItem(
                         modifier,
