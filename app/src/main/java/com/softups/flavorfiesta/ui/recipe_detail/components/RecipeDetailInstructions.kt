@@ -79,7 +79,7 @@ fun RecipeInstructionsItem(modifier: Modifier = Modifier, instruction: String, s
 @Preview
 @Composable
 fun DetailRecipeInstructionsPreview() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

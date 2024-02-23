@@ -102,7 +102,7 @@ fun RecipeFact(modifier: Modifier = Modifier, title: String, value: String) {
 @Preview
 @Composable
 fun DetailRecipeInfoPreview() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

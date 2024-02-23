@@ -109,7 +109,7 @@ fun RecipeListScreen(
 @Preview(showBackground = true)
 @Composable
 fun RecipeListScreenPreviewError() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -129,7 +129,7 @@ fun RecipeListScreenPreviewError() {
 @Preview(showBackground = true)
 @Composable
 fun RecipeListScreenPreviewEmpty() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -150,7 +150,7 @@ fun RecipeListScreenPreviewEmpty() {
 @Preview(showBackground = true)
 @Composable
 fun RecipeListScreenPreviewLoading() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -169,7 +169,7 @@ fun RecipeListScreenPreviewLoading() {
 @Preview(showBackground = true)
 @Composable
 fun RecipeListScreenPreviewData() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

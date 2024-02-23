@@ -64,7 +64,7 @@ fun debugPlaceholder(@DrawableRes debugPreview: Int) = if (LocalInspectionMode.c
 @Preview
 @Composable
 fun DetailHeaderPreview() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {

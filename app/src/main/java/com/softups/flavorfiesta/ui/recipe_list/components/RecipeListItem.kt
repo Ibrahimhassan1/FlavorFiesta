@@ -106,7 +106,7 @@ fun RecipeListItem(
 @Preview
 @Composable
 fun RecipeListScreenPreview() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

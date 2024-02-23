@@ -37,23 +37,21 @@ fun RecipeDetailScreen(
             .semantics { testTagsAsResourceId = true },
         verticalArrangement = Arrangement.Center
     ) {
-        recipe.let {
-            DetailHeader(recipe = it)
-            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-            DetailRecipeInfo(recipe = it)
-            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-            DetailRecipeIngredients(recipe = it)
-            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-            DetailRecipeInstructions(recipe = it)
+        DetailHeader(recipe = recipe)
+        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+        DetailRecipeInfo(recipe = recipe)
+        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+        DetailRecipeIngredients(recipe = recipe)
+        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+        DetailRecipeInstructions(recipe = recipe)
 
-        }
     }
 }
 
 @Preview
 @Composable
 fun RecipeDetailScreenPreview() {
-    FlavorFiestaTheme {
+    FlavorFiestaTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
