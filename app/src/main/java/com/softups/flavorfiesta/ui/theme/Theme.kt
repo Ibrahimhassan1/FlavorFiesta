@@ -116,6 +116,7 @@ fun FlavorFiestaTheme(
 /**
  * Sets up edge-to-edge for the window of this [view]. The system icon colors are set to either
  * light or dark depending on whether the [darkTheme] is enabled or not.
+ * Attribute: https://developer.android.com/codelabs/basic-android-kotlin-compose-material-theming#1
  */
 private fun setUpEdgeToEdge(view: View, darkTheme: Boolean) {
     val window = (view.context as Activity).window

@@ -6,6 +6,7 @@ import okio.buffer
 import okio.source
 import java.nio.charset.StandardCharsets
 
+// Attribute: https://proandroiddev.com/testing-retrofit-converter-with-mock-webserver-50f3e1f54013
 fun MockWebServer.enqueueResponse(fileName: String, httpCode: Int) {
     val inputStream = javaClass.classLoader?.getResourceAsStream(fileName)
 
