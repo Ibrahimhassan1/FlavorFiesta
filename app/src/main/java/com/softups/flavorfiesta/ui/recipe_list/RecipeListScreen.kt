@@ -47,61 +47,69 @@ fun RecipeListScreen(
 ) {
     val context = LocalContext.current
     Box(modifier = modifier.fillMaxSize()) {
-        if (recipeListState.recipes.isNotEmpty()) {
-            val gridRowCount = remember {
-                // When orientation is Landscape
-                when (widthSizeClass) {
-                    WindowWidthSizeClass.Compact -> {
-                        1
-                    }
-                    // Other wise
-                    else -> {
-                        2
-                    }
-                }
-            }
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(gridRowCount),
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-                modifier = modifier
-            ) {
-                items(recipeListState.recipes) { recipe ->
-                    RecipeListItem(modifier, recipe, onItemClick)
-                }
-            }
-        } else if (recipeListState.error.isBlank() && !recipeListState.isLoading) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                DisplayMessage(
-                    messageText = stringResource(id = R.string.empty_list),
-                    modifier = modifier.align(Alignment.CenterHorizontally)
-                )
-                Icon(
-                    imageVector = Icons.Default.Refresh,
-                    contentDescription = "Refresh Icon",
-                    modifier = Modifier
-                        .clickable {
-                            onRefreshClick()
+        when {
+            recipeListState.recipes.isNotEmpty() -> {
+                val gridRowCount = remember {
+                    // When orientation is Landscape
+                    when (widthSizeClass) {
+                        WindowWidthSizeClass.Compact -> {
+                            1
                         }
-                )
-            }
-        } else if (recipeListState.error.isNotBlank()) {
-            DisplayError(recipeListState.error, modifier.align(Alignment.Center))
-        } else if (recipeListState.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .semantics {
-                        contentDescription =
-                            context.getString(R.string.loading_recipes_content_description)
-                    },
+                        // Other wise
+                        else -> {
+                            2
+                        }
+                    }
+                }
 
-                )
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(gridRowCount),
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+                    modifier = modifier
+                ) {
+                    items(recipeListState.recipes) { recipe ->
+                        RecipeListItem(modifier, recipe, onItemClick)
+                    }
+                }
+            }
+
+            recipeListState.error.isBlank() && !recipeListState.isLoading -> {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    DisplayMessage(
+                        messageText = stringResource(id = R.string.empty_list),
+                        modifier = modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "Refresh Icon",
+                        modifier = Modifier
+                            .clickable {
+                                onRefreshClick()
+                            }
+                    )
+                }
+            }
+
+            recipeListState.error.isNotBlank() -> {
+                DisplayError(recipeListState.error, modifier.align(Alignment.Center))
+            }
+
+            recipeListState.isLoading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .semantics {
+                            contentDescription =
+                                context.getString(R.string.loading_recipes_content_description)
+                        },
+
+                    )
+            }
         }
     }
 }

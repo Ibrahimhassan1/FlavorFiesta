@@ -1,4 +1,4 @@
-package com.softups.flavorfiesta
+package com.softups.flavorfiesta.ui.recipe_list
 
 import MainDispatcherRule
 import com.softups.flavorfiesta.common.Constants.HTTP_400_ERROR
@@ -11,7 +11,6 @@ import com.softups.flavorfiesta.data.remote.RemoteDataSource
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.data.repository.DefaultRecipeRepository
 import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
-import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
 import com.softups.flavorfiesta.util.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -135,5 +134,26 @@ class RecipeListViewModelTest {
     fun `when item selected then viewModel state emits state with selected recipe`() = runTest {
         recipeListViewModel.setSelectedRecipe(TestUtils.singleDummyRecipe)
         assertEquals(recipeListViewModel.state.value.selectedRecipe, TestUtils.singleDummyRecipe)
+    }
+
+    @Test
+    fun bubbleSort() {
+        val input = intArrayOf(3, 4, 5, 8, 2, 1)
+
+        fun sort(arr: IntArray) {
+            var swap = true
+            while (swap) {
+                swap = false
+                for (i in 0 until input.size - 1) {
+                    if (arr[i] > arr[i + 1]) {
+                        val temp = arr[i]
+                        arr[i] = arr[i + 1]
+                        arr[i + 1] = temp
+                        swap = true
+                    }
+                }
+            }
+        }
+        sort(input)
     }
 }
