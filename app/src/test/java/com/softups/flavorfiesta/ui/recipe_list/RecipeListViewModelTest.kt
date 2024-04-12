@@ -135,25 +135,4 @@ class RecipeListViewModelTest {
         recipeListViewModel.setSelectedRecipe(TestUtils.singleDummyRecipe)
         assertEquals(recipeListViewModel.state.value.selectedRecipe, TestUtils.singleDummyRecipe)
     }
-
-    @Test
-    fun bubbleSort() {
-        val input = intArrayOf(3, 4, 5, 8, 2, 1)
-
-        fun sort(arr: IntArray) {
-            var swap = true
-            while (swap) {
-                swap = false
-                for (i in 0 until input.size - 1) {
-                    if (arr[i] > arr[i + 1]) {
-                        val temp = arr[i]
-                        arr[i] = arr[i + 1]
-                        arr[i + 1] = temp
-                        swap = true
-                    }
-                }
-            }
-        }
-        sort(input)
-    }
 }

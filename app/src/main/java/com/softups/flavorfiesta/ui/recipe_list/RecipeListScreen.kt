@@ -14,7 +14,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -36,7 +35,6 @@ import com.softups.flavorfiesta.ui.recipe_list.components.DisplayMessage
 import com.softups.flavorfiesta.ui.recipe_list.components.RecipeListItem
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun RecipeListScreen(
     modifier: Modifier = Modifier,
@@ -50,7 +48,7 @@ fun RecipeListScreen(
         when {
             recipeListState.recipes.isNotEmpty() -> {
                 val gridRowCount = remember {
-                    // When orientation is Landscape
+                    // When orientation is Portrait
                     when (widthSizeClass) {
                         WindowWidthSizeClass.Compact -> {
                             1
