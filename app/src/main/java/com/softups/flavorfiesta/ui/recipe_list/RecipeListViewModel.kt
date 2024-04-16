@@ -1,6 +1,5 @@
 package com.softups.flavorfiesta.ui.recipe_list
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,6 @@ import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +17,8 @@ class RecipeListViewModel @Inject constructor(
     private val getRecipesUseCase: GetRecipesUseCase
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(RecipeListState())
-    val state: State<RecipeListState> = _state
+    var state = mutableStateOf(RecipeListState())
+        private set
 
     init {
         getRecipes()
@@ -30,20 +28,20 @@ class RecipeListViewModel @Inject constructor(
         getRecipesUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = RecipeListState(
+                    state.value = RecipeListState(
                         recipes = result.data ?: emptyList()
                     )
                 }
 
                 is Resource.Error -> {
-                    _state.value = RecipeListState(
+                    state.value = RecipeListState(
                         isLoading = false,
                         error = result.message ?: UN_EXPECTED_ERROR
                     )
                 }
 
                 is Resource.Loading -> {
-                    _state.value = RecipeListState(
+                    state.value = RecipeListState(
                         isLoading = true
                     )
                 }
@@ -52,7 +50,7 @@ class RecipeListViewModel @Inject constructor(
     }
 
     fun setSelectedRecipe(recipe: Recipe) {
-        _state.value = _state.value.copy(
+        state.value = state.value.copy(
             selectedRecipe = recipe
         )
     }
