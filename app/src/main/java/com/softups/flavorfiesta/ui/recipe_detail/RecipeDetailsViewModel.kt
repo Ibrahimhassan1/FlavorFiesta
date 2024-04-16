@@ -3,6 +3,7 @@ package com.softups.flavorfiesta.ui.recipe_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.softups.flavorfiesta.common.Constants.TIMEOUT_MILLIS
 import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
 import com.softups.flavorfiesta.common.Resource
 import com.softups.flavorfiesta.domain.use_case.GetRecipeUseCase
@@ -21,10 +22,6 @@ class RecipeDetailsViewModel @Inject constructor(
 
     private val recipeId: String =
         checkNotNull(savedStateHandle[RecipeDetailsDestination.recipeIdArg])
-
-    companion object {
-        private const val TIMEOUT_MILLIS = 5_000L
-    }
 
     val state: StateFlow<RecipeDetailsState> = getRecipeUseCase(recipeId.toInt()).map { result ->
         when (result) {

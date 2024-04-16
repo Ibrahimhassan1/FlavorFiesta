@@ -6,4 +6,5 @@ object Constants {
     const val UN_EXPECTED_ERROR = "An unexpected error occurred, please try again later."
     const val NOT_CONNECTED_ERROR = "Couldn't reach server. Check your internet connection."
     const val HTTP_400_ERROR = "HTTP 400 Client Error"
+    const val TIMEOUT_MILLIS = 5_000L
 }

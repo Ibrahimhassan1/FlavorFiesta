@@ -29,7 +29,6 @@ fun RecipeDetailScreen(
     widthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
     viewModel: RecipeDetailsViewModel = hiltViewModel()
 ) {
-
     val isExpanded = remember { widthSizeClass != WindowWidthSizeClass.Compact }
     val recipeDetailsState by viewModel.state.collectAsState()
 
@@ -38,7 +37,6 @@ fun RecipeDetailScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center
     ) {
-
         if (isExpanded) {
             RecipeDetailScreenLandscape(recipeDetailsState = recipeDetailsState)
         } else {

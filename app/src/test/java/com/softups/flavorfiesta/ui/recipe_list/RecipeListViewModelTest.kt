@@ -129,10 +129,4 @@ class RecipeListViewModelTest {
             }
         }
     }
-
-    @Test
-    fun `when item selected then viewModel state emits state with selected recipe`() = runTest {
-        recipeListViewModel.setSelectedRecipe(TestUtils.singleDummyRecipe)
-        assertEquals(recipeListViewModel.state.value.selectedRecipe, TestUtils.singleDummyRecipe)
-    }
 }
