@@ -1,12 +1,13 @@
 package com.softups.flavorfiesta.data.repository
 
 import com.softups.flavorfiesta.data.DataSource
+import com.softups.flavorfiesta.data.remote.RemoteDataSource
 import com.softups.flavorfiesta.data.remote.dto.RecipeDto
 import com.softups.flavorfiesta.domain.repository.RecipeRepository
 import javax.inject.Inject
 
 class DefaultRecipeRepository @Inject constructor(
-    private val remoteDataSource: DataSource,
+    private val remoteDataSource: RemoteDataSource,
     private val localDataSource: DataSource
 ) :
     RecipeRepository {

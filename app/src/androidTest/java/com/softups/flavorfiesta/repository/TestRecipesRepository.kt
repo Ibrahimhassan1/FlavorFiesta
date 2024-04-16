@@ -9,4 +9,8 @@ class TestRecipesRepository : RecipeRepository {
         return TestUtils.dummyRecipesDto.recipes
     }
 
+    override suspend fun getRecipe(recipeId: Int): RecipeDto {
+        return TestUtils.dummyRecipesDto.recipes[0]
+    }
+
 }

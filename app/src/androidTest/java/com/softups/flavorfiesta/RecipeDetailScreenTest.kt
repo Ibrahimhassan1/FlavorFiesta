@@ -11,7 +11,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performScrollToNode
 import com.softups.flavorfiesta.common.TestUtils
-import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailScreen
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsState
+import com.softups.flavorfiesta.ui.recipe_detail.components.RecipeDetailScreenPortrait
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,8 +25,8 @@ class RecipeDetailScreenTest {
     fun displayRecipeDetailHeader_whenScreenIsLoaded() {
         val testRecipe = TestUtils.singleDummyRecipe
         composeTestRule.setContent {
-            RecipeDetailScreen(
-                recipe = testRecipe
+            RecipeDetailScreenPortrait(
+                recipeDetailsState = RecipeDetailsState(selectedRecipe = testRecipe)
             )
         }
         composeTestRule.onNodeWithText(testRecipe.name).assertIsDisplayed()
@@ -36,8 +37,8 @@ class RecipeDetailScreenTest {
     fun displayRecipeDetailFacts_whenScreenIsLoaded() {
         val testRecipe = TestUtils.singleDummyRecipe
         composeTestRule.setContent {
-            RecipeDetailScreen(
-                recipe = testRecipe
+            RecipeDetailScreenPortrait(
+                recipeDetailsState = RecipeDetailsState(selectedRecipe = testRecipe)
             )
         }
 
@@ -70,8 +71,8 @@ class RecipeDetailScreenTest {
     fun displayRecipeDetailIngredients_whenScreenIsLoaded() {
         val testRecipe = TestUtils.singleDummyRecipe
         composeTestRule.setContent {
-            RecipeDetailScreen(
-                recipe = testRecipe
+            RecipeDetailScreenPortrait(
+                recipeDetailsState = RecipeDetailsState(selectedRecipe = testRecipe)
             )
         }
 
@@ -91,8 +92,8 @@ class RecipeDetailScreenTest {
     fun displayRecipeDetailInstructions_whenScreenIsLoaded() {
         val testRecipe = TestUtils.singleDummyRecipe
         composeTestRule.setContent {
-            RecipeDetailScreen(
-                recipe = testRecipe
+            RecipeDetailScreenPortrait(
+                recipeDetailsState = RecipeDetailsState(selectedRecipe = testRecipe)
             )
         }
 

@@ -2,8 +2,6 @@ package com.softups.flavorfiesta.ui.recipe_detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,8 +31,7 @@ fun RecipeDetailScreen(
     val recipeDetailsState by viewModel.state.collectAsState()
 
     Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState()),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center
     ) {
         if (isExpanded) {

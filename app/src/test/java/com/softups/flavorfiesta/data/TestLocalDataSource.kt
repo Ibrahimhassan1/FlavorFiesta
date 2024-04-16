@@ -10,6 +10,10 @@ class TestLocalDataSource : DataSource {
         return localRecipes
     }
 
+    override suspend fun getRecipe(recipeId: Int): RecipeDto {
+        return localRecipes.get(recipeId)
+    }
+
     override suspend fun updateRecipes(recipes: List<RecipeDto>) {
         localRecipes.addAll(recipes)
     }

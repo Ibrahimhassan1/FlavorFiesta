@@ -81,12 +81,14 @@ class RecipeListScreenTest {
                 onItemClick = {},
                 onRefreshClick = {})
         }
-        composeTestRule.onNodeWithText(testRecipesList[0].name).assertExists()
+        composeTestRule.onNodeWithText(testRecipesList[0].name)
+            .assertExists()
         composeTestRule.onNodeWithText(
-            composeTestRule.activity.getString(
-                R.string.time_in_minutes, testRecipesList[0].prepTimeMinutes
-            )
-        ).assertExists()
+            testRecipesList[0].name + ", " +
+                    composeTestRule.activity.getString(
+                        R.string.time_in_minutes, testRecipesList[0].prepTimeMinutes
+                    ), useUnmergedTree = true
+        ).isDisplayed()
 
         composeTestRule.onNodeWithText(testRecipesList[1].name).assertExists()
 
