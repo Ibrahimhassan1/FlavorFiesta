@@ -20,4 +20,7 @@ class DefaultRecipeRepository @Inject constructor(
         return localDataSource.fetchRecipes()
     }
 
+    override suspend fun getRecipe(recipeId: Int): RecipeDto {
+        return localDataSource.getRecipe(recipeId)
+    }
 }

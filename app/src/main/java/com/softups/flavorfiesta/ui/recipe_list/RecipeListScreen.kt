@@ -30,10 +30,16 @@ import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
 import com.softups.flavorfiesta.common.TestUtils
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.model.Recipe
+import com.softups.flavorfiesta.ui.navigation.NavigationDestination
 import com.softups.flavorfiesta.ui.recipe_list.components.DisplayError
 import com.softups.flavorfiesta.ui.recipe_list.components.DisplayMessage
 import com.softups.flavorfiesta.ui.recipe_list.components.RecipeListItem
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
+
+object RecipeListDestination : NavigationDestination {
+    override val route = "recipe_list_screen"
+    override val titleResource = R.string.recipe_list_title
+}
 
 @Composable
 fun RecipeListScreen(

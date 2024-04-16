@@ -9,6 +9,10 @@ class RemoteDataSource @Inject constructor(private val recipeApi: RecipeApi) : D
         return recipeApi.getRemoteRecipes().recipes
     }
 
+    override suspend fun getRecipe(recipeId: Int): RecipeDto {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun updateRecipes(recipes: List<RecipeDto>) {
         //Not yet implemented
     }

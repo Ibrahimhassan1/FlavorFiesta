@@ -9,23 +9,40 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.TestUtils
-import com.softups.flavorfiesta.domain.model.Recipe
+import com.softups.flavorfiesta.ui.navigation.NavigationDestination
 import com.softups.flavorfiesta.ui.recipe_detail.components.RecipeDetailScreenLandscape
 import com.softups.flavorfiesta.ui.recipe_detail.components.RecipeDetailScreenPortrait
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
+object RecipeDetailsDestination : NavigationDestination {
+    override val route = "recipe_detail_screen"
+    override val titleResource = R.string.recipe_detail_title
+    const val recipeIdArg = "recipeId"
+    val routeWithArgs = "$route/{$recipeIdArg}"
+}
+
 @Composable
 fun RecipeDetailScreen(
     modifier: Modifier = Modifier,
-    recipe: Recipe,
-    widthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact
+    widthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
+    recipeId: String,
+    viewModel: RecipeDetailsViewModel = hiltViewModel()
 ) {
 
     val isExpanded = remember { widthSizeClass != WindowWidthSizeClass.Compact }
+    val recipeDetailsState by viewModel.state
+
+    LaunchedEffect(key1 = true) {
+        viewModel.getRecipe(recipeId.toInt())
+    }
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState()),
@@ -33,9 +50,9 @@ fun RecipeDetailScreen(
     ) {
 
         if (isExpanded) {
-            RecipeDetailScreenLandscape(recipe = recipe)
+            RecipeDetailScreenLandscape(recipeDetailsState = recipeDetailsState)
         } else {
-            RecipeDetailScreenPortrait(recipe = recipe)
+            RecipeDetailScreenPortrait(recipeDetailsState = recipeDetailsState)
         }
     }
 }
@@ -48,7 +65,7 @@ fun RecipeDetailScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RecipeDetailScreen(recipe = TestUtils.singleDummyRecipe)
+            RecipeDetailScreen(recipeId = TestUtils.singleDummyRecipe.id.toString())
         }
     }
 }
@@ -61,7 +78,7 @@ fun RecipeDetailScreenPreviewLandscape() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RecipeDetailScreen(recipe = TestUtils.singleDummyRecipe)
+            RecipeDetailScreen(recipeId = TestUtils.singleDummyRecipe.id.toString())
         }
     }
 }

@@ -28,56 +28,61 @@ import coil.request.ImageRequest
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.TestUtils
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
-import com.softups.flavorfiesta.domain.model.Recipe
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsState
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
 @Composable
-fun RecipeDetailScreenLandscape(modifier: Modifier = Modifier, recipe: Recipe) {
-    Column {
-        Card(
-            modifier = modifier
-                .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
-                .wrapContentHeight(),
-        ) {
-            Row {
-                Box {
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(recipe.image)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = null,
-                        placeholder = debugPlaceholder(R.drawable.top_app_bar_icon),
-                        modifier = modifier
-                            .size(width = 125.dp, height = 125.dp)
-                            .aspectRatio(1f)
-                            .testTag(recipe.image),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                Column {
-                    Text(
-                        text = recipe.name,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = modifier.padding(
-                            start = dimensionResource(R.dimen.padding_medium),
-                            top = dimensionResource(R.dimen.padding_medium),
-                            end = dimensionResource(R.dimen.padding_medium),
-                            bottom = dimensionResource(R.dimen.padding_small)
+fun RecipeDetailScreenLandscape(
+    modifier: Modifier = Modifier,
+    recipeDetailsState: RecipeDetailsState,
+) {
+    recipeDetailsState.selectedRecipe?.let { recipe ->
+        Column {
+            Card(
+                modifier = modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+                    .wrapContentHeight(),
+            ) {
+                Row {
+                    Box {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(recipe.image)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = null,
+                            placeholder = debugPlaceholder(R.drawable.top_app_bar_icon),
+                            modifier = modifier
+                                .size(width = 125.dp, height = 125.dp)
+                                .aspectRatio(1f)
+                                .testTag(recipe.image),
+                            contentScale = ContentScale.Crop
                         )
-                    )
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        DetailRecipeInfo(modifier, recipe)
+                    }
+
+                    Column {
+                        Text(
+                            text = recipe.name,
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.headlineMedium,
+                            modifier = modifier.padding(
+                                start = dimensionResource(R.dimen.padding_medium),
+                                top = dimensionResource(R.dimen.padding_medium),
+                                end = dimensionResource(R.dimen.padding_medium),
+                                bottom = dimensionResource(R.dimen.padding_small)
+                            )
+                        )
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            DetailRecipeInfo(modifier, recipe)
+                        }
                     }
                 }
             }
-        }
-        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-        Row {
-            DetailRecipeInstructions(recipe = recipe, modifier = modifier)
-            DetailRecipeIngredients(recipe = recipe, modifier = modifier)
+            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+            Row {
+                DetailRecipeInstructions(recipe = recipe, modifier = modifier)
+                DetailRecipeIngredients(recipe = recipe, modifier = modifier)
+            }
         }
     }
 }
@@ -90,7 +95,7 @@ fun RecipeDetailLandscapePreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RecipeDetailScreenLandscape(recipe = TestUtils.dummyRecipesDto.toRecipes()[0])
+            RecipeDetailScreenLandscape(recipeDetailsState = RecipeDetailsState(selectedRecipe = TestUtils.dummyRecipesDto.toRecipes()[0]))
         }
     }
 }

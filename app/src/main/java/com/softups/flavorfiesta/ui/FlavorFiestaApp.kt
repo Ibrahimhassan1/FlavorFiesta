@@ -21,30 +21,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.softups.flavorfiesta.R
-import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailScreen
-import com.softups.flavorfiesta.ui.recipe_list.RecipeListScreen
+import com.softups.flavorfiesta.ui.navigation.AppNavHost
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsDestination
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsViewModel
+import com.softups.flavorfiesta.ui.recipe_list.RecipeListDestination
 import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
 @Composable
 fun FlavorFiestaApp(
     widthSizeClass: WindowWidthSizeClass,
-    recipeListViewModel: RecipeListViewModel = hiltViewModel()
+    recipeListViewModel: RecipeListViewModel = hiltViewModel(),
+    recipeDetailsViewModel: RecipeDetailsViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
     // Get current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
     // Get the route of the current screen then turn it to a title
     val screenTitle =
-        when (backStackEntry?.destination?.route ?: Screen.RecipeListScreen.route) {
-            Screen.RecipeListScreen.route -> stringResource(id = R.string.recipe_list_title)
-            Screen.RecipeDetailScreen.route -> stringResource(id = R.string.recipe_detail_title)
+        when (backStackEntry?.destination?.route ?: RecipeListDestination.route) {
+            RecipeListDestination.route -> stringResource(id = R.string.recipe_list_title)
+            RecipeDetailsDestination.route -> stringResource(id = R.string.recipe_detail_title)
             else -> stringResource(id = R.string.recipe_list_title)
         }
 
@@ -72,43 +72,6 @@ fun FlavorFiestaApp(
     }
 }
 
-@Composable
-fun AppNavHost(
-    navController: NavHostController,
-    recipeListViewModel: RecipeListViewModel = hiltViewModel(),
-    widthSizeClass: WindowWidthSizeClass
-) {
-    NavHost(
-        navController = navController,
-        startDestination = Screen.RecipeListScreen.route
-    ) {
-        composable(
-            route = Screen.RecipeListScreen.route
-        ) {
-            RecipeListScreen(
-                recipeListState = recipeListViewModel.state.value,
-                onItemClick = {
-                    recipeListViewModel.setSelectedRecipe(it)
-                    navController.navigate(Screen.RecipeDetailScreen.route)
-                },
-                onRefreshClick = {
-                    recipeListViewModel.getRecipes()
-                },
-                widthSizeClass = widthSizeClass
-            )
-        }
-        composable(
-            route = Screen.RecipeDetailScreen.route
-        ) {
-            recipeListViewModel.state.value.selectedRecipe?.let {
-                RecipeDetailScreen(
-                    recipe = it,
-                    widthSizeClass = widthSizeClass
-                )
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

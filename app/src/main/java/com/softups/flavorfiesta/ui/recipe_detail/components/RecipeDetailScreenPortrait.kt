@@ -17,25 +17,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.TestUtils
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
-import com.softups.flavorfiesta.domain.model.Recipe
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsState
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun RecipeDetailScreenPortrait(modifier: Modifier = Modifier, recipe: Recipe) {
-    Column(
-        modifier = modifier
-            .semantics { testTagsAsResourceId = true },
-        verticalArrangement = Arrangement.Center
-    ) {
-        DetailHeader(recipe = recipe)
-        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-        DetailRecipeInfo(recipe = recipe)
-        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-        DetailRecipeIngredients(recipe = recipe)
-        Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-        DetailRecipeInstructions(recipe = recipe)
+fun RecipeDetailScreenPortrait(
+    modifier: Modifier = Modifier,
+    recipeDetailsState: RecipeDetailsState,
+) {
+    recipeDetailsState.selectedRecipe?.let { recipe ->
+        Column(
+            modifier = modifier
+                .semantics { testTagsAsResourceId = true },
+            verticalArrangement = Arrangement.Center
+        ) {
+            DetailHeader(recipe = recipe)
+            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+            DetailRecipeInfo(recipe = recipe)
+            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+            DetailRecipeIngredients(recipe = recipe)
+            Spacer(modifier = modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+            DetailRecipeInstructions(recipe = recipe)
 
+        }
     }
 }
 
@@ -47,7 +52,7 @@ fun RecipeDetailPortraitPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RecipeDetailScreenPortrait(recipe = TestUtils.dummyRecipesDto.toRecipes()[0])
+            RecipeDetailScreenPortrait(recipeDetailsState = RecipeDetailsState(selectedRecipe = TestUtils.dummyRecipesDto.toRecipes()[0]))
         }
     }
 }
