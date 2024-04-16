@@ -20,22 +20,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.ui.navigation.AppNavHost
 import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsDestination
-import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsViewModel
 import com.softups.flavorfiesta.ui.recipe_list.RecipeListDestination
-import com.softups.flavorfiesta.ui.recipe_list.RecipeListViewModel
 import com.softups.flavorfiesta.ui.theme.FlavorFiestaTheme
 
 @Composable
 fun FlavorFiestaApp(
-    widthSizeClass: WindowWidthSizeClass,
-    recipeListViewModel: RecipeListViewModel = hiltViewModel(),
-    recipeDetailsViewModel: RecipeDetailsViewModel = hiltViewModel()
+    widthSizeClass: WindowWidthSizeClass
 ) {
     val navController = rememberNavController()
     // Get current back stack entry
@@ -66,12 +61,11 @@ fun FlavorFiestaApp(
                     .padding(innerPadding),
                 color = MaterialTheme.colorScheme.background
             ) {
-                AppNavHost(navController, recipeListViewModel, widthSizeClass)
+                AppNavHost(navController, widthSizeClass)
             }
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,5 +103,3 @@ private fun AppBar(
         }
     )
 }
-
-

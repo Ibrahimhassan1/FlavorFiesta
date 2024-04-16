@@ -25,12 +25,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
 import com.softups.flavorfiesta.common.TestUtils
 import com.softups.flavorfiesta.data.remote.dto.toRecipes
 import com.softups.flavorfiesta.domain.model.Recipe
 import com.softups.flavorfiesta.ui.navigation.NavigationDestination
+import com.softups.flavorfiesta.ui.recipe_detail.RecipeDetailsDestination
 import com.softups.flavorfiesta.ui.recipe_list.components.DisplayError
 import com.softups.flavorfiesta.ui.recipe_list.components.DisplayMessage
 import com.softups.flavorfiesta.ui.recipe_list.components.RecipeListItem
@@ -41,6 +44,28 @@ object RecipeListDestination : NavigationDestination {
     override val titleResource = R.string.recipe_list_title
 }
 
+// stateless view
+@Composable
+fun RecipeListScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    widthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
+    viewModel: RecipeListViewModel = hiltViewModel()
+) {
+    RecipeListScreen(
+        modifier = modifier,
+        recipeListState = viewModel.state.value,
+        onItemClick = {
+            navController.navigate("${RecipeDetailsDestination.route}/${it.id}")
+        },
+        onRefreshClick = {
+            viewModel.getRecipes()
+        },
+        widthSizeClass = widthSizeClass
+    )
+}
+
+// state full view
 @Composable
 fun RecipeListScreen(
     modifier: Modifier = Modifier,
