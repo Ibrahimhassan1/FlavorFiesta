@@ -23,7 +23,7 @@ class RecipeDetailsViewModel @Inject constructor(
     private val recipeId: String =
         checkNotNull(savedStateHandle[RecipeDetailsDestination.recipeIdArg])
 
-    val state: StateFlow<RecipeDetailsState> = getRecipeUseCase(recipeId.toInt()).map { result ->
+    val uiState: StateFlow<RecipeDetailsState> = getRecipeUseCase(recipeId.toInt()).map { result ->
         when (result) {
             is Resource.Success -> {
                 RecipeDetailsState(

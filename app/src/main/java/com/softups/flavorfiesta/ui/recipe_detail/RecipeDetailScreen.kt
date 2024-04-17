@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.ui.navigation.NavigationDestination
 import com.softups.flavorfiesta.ui.recipe_detail.components.RecipeDetailScreenLandscape
@@ -28,7 +28,7 @@ fun RecipeDetailScreen(
     viewModel: RecipeDetailsViewModel = hiltViewModel()
 ) {
     val isExpanded = remember { widthSizeClass != WindowWidthSizeClass.Compact }
-    val recipeDetailsState by viewModel.state.collectAsState()
+    val recipeDetailsState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier,

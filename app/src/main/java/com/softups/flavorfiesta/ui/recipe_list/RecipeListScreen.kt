@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.softups.flavorfiesta.R
 import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
@@ -52,9 +54,10 @@ fun RecipeListScreen(
     widthSizeClass: WindowWidthSizeClass = WindowWidthSizeClass.Compact,
     viewModel: RecipeListViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     RecipeListScreen(
         modifier = modifier,
-        recipeListState = viewModel.state.value,
+        recipeListState = uiState,
         onItemClick = {
             navController.navigate("${RecipeDetailsDestination.route}/${it.id}")
         },

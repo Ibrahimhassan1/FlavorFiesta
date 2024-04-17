@@ -1,12 +1,12 @@
 package com.softups.flavorfiesta.ui.recipe_list
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.softups.flavorfiesta.common.Constants.UN_EXPECTED_ERROR
 import com.softups.flavorfiesta.common.Resource
 import com.softups.flavorfiesta.domain.use_case.GetRecipesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class RecipeListViewModel @Inject constructor(
     private val getRecipesUseCase: GetRecipesUseCase
 ) : ViewModel() {
 
-    var state = mutableStateOf(RecipeListState())
+    var uiState = MutableStateFlow(RecipeListState())
         private set
 
     init {
@@ -27,20 +27,20 @@ class RecipeListViewModel @Inject constructor(
         getRecipesUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    state.value = RecipeListState(
+                    uiState.value = RecipeListState(
                         recipes = result.data ?: emptyList()
                     )
                 }
 
                 is Resource.Error -> {
-                    state.value = RecipeListState(
+                    uiState.value = RecipeListState(
                         isLoading = false,
                         error = result.message ?: UN_EXPECTED_ERROR
                     )
                 }
 
                 is Resource.Loading -> {
-                    state.value = RecipeListState(
+                    uiState.value = RecipeListState(
                         isLoading = true
                     )
                 }

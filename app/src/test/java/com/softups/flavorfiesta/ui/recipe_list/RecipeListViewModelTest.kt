@@ -71,7 +71,7 @@ class RecipeListViewModelTest {
     fun `when viewModel init then viewModel emits http error testing loading viewModel state`() =
         runTest {
             mockWebServer.enqueueResponse("recipes.json", HttpURLConnection.HTTP_OK)
-            assertEquals(recipeListViewModel.state.value.isLoading, true)
+            assertEquals(recipeListViewModel.uiState.value.isLoading, true)
         }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -80,7 +80,7 @@ class RecipeListViewModelTest {
         mockWebServer.enqueueResponse("recipes.json", HttpURLConnection.HTTP_OK)
         val flowableRecipesUseCase = getRecipesUseCase()
         flowableRecipesUseCase.collect { result ->
-            val recipeListViewModelState = recipeListViewModel.state.value
+            val recipeListViewModelState = recipeListViewModel.uiState.value
             when (result) {
                 is Resource.Loading -> {
                     assertEquals(result.data, null)
@@ -111,7 +111,7 @@ class RecipeListViewModelTest {
         mockWebServer.enqueueResponse("recipes.json", HttpURLConnection.HTTP_BAD_REQUEST)
         val flowableRecipesUseCase = getRecipesUseCase()
         flowableRecipesUseCase.collect { result ->
-            val recipeListViewModelState = recipeListViewModel.state.value
+            val recipeListViewModelState = recipeListViewModel.uiState.value
             when (result) {
                 is Resource.Loading -> {
                     assertEquals(result.data, null)
